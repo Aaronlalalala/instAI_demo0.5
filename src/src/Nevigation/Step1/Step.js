@@ -36,6 +36,7 @@ function Step() {
     }
   };
   useEffect(() => {
+    console.log(upload.toString(),requirement.toString(),confirm1Data.toString(),confirm2Data.toString());
     localStorage.setItem(`firstPage_${userid}_${projectname}`, upload.toString());
     localStorage.setItem(`secondPage_${userid}_${projectname}`, requirement.toString());
     localStorage.setItem(`confirmStatusImg_${userid}_${projectname}`, confirm1Data.toString());

@@ -13,7 +13,7 @@ function Model() {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const userid = searchParams.get('id');
-  const projectname = searchParams.get('project');
+  const projectname = searchParams.get('projectname');
   const DataLink =`/Data?id=${userid}&projectname=${projectname}`;
   const ReqLink =`/Req?id=${userid}&projectname=${projectname}`;
   const fetchData = async () => {
@@ -21,12 +21,8 @@ function Model() {
       const response = await axios.post(
         `http://localhost:8080/api/model/downloadmodel/?username=${userid}&projectname=${projectname}`
       );
-      const responseData = response.data.content;
-      const parsedData = {};
-      responseData.forEach(item => {
-        const parsedItem = JSON.parse(`{${item}}`);
-        Object.assign(parsedData, parsedItem);
-      });
+      console.log(response.data);
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
