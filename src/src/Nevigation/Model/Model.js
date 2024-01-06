@@ -4,6 +4,7 @@ import ProgressBar from 'react-progress-bar-plus';
 import 'react-progress-bar-plus/lib/progress-bar.css';
 import Giwawa from "../../image/OIP.jpg";
 import "./Model.css";
+import axios from 'axios';
 
 function Model() {
     const location = useLocation();
@@ -15,9 +16,24 @@ function Model() {
   const projectname = searchParams.get('project');
   const DataLink =`/Data?id=${userid}&projectname=${projectname}`;
   const ReqLink =`/Req?id=${userid}&projectname=${projectname}`;
-  
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/model/downloadmodel/?username=${userid}&projectname=${projectname}`
+      );
+      const responseData = response.data.content;
+      const parsedData = {};
+      responseData.forEach(item => {
+        const parsedItem = JSON.parse(`{${item}}`);
+        Object.assign(parsedData, parsedItem);
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   useEffect(() => {
     // 這邊要搭配後端的功能去確認每一個階段的狀態 我只是先試著用時間去跑進度條 
+    
     const interval = setInterval(() => {
       setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 20 : prevProgress));
     }, 1000);
@@ -27,6 +43,7 @@ function Model() {
       setTimeout(() => {
         window.confirm("Your model is finished! ");
         // navigate('/next-page');
+        fetchData();
       }, 1000);
     }
 

@@ -12,7 +12,7 @@ function ConfirmReq() {
   const projectname = searchParams.get('projectname');
   const id = searchParams.get('id');
   const navigate = useNavigate();
-  const [confirmed, setConfirmed] = useState(JSON.parse(localStorage.getItem(`confirmed_${id}_${projectname}`)) === true);
+  const [confirmed, setConfirmed] = useState(JSON.parse(localStorage.getItem(`confirmStatusReq_${id}_${projectname}`) || 'false'));
 
   console.log('Initial confirmed value:', confirmed);
   const fetchData = async () => {
@@ -33,7 +33,7 @@ function ConfirmReq() {
   };
 
   useEffect(() => {
-    localStorage.setItem(`confirmed_${id}_${projectname}`, confirmed.toString());
+    localStorage.setItem(`confirmStatusReq_${id}_${projectname}`, confirmed.toString());
     fetchData();
   }, [id, projectname]);
 
@@ -103,7 +103,7 @@ function ConfirmReq() {
   const handleCancelConfirmation = () => {
   const userConfirmed = window.confirm('Are you sure you want to cancel the confirmation?');
   if (userConfirmed) {
-    localStorage.setItem(`confirmed_${id}_${projectname}`, 'false');
+    localStorage.setItem(`confirmStatusReq_${id}_${projectname}`, 'false');
     setConfirmed(false);
   }
 };
@@ -111,7 +111,7 @@ function ConfirmReq() {
 const handleConfirmRequirement = () => {
   const userConfirmed = window.confirm('Are you sure you want to confirm the requirement?');
   if (userConfirmed) {
-    localStorage.setItem(`confirmed_${id}_${projectname}`, 'true');
+    localStorage.setItem(`confirmStatusReq_${id}_${projectname}`, 'true');
     setConfirmed(true);
   }
 };

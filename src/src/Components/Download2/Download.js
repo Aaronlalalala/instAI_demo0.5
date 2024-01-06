@@ -1,9 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import styles from './Download.module.css';
 import axios from 'axios';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import InstAI_icon from "../../image/instai_icon.png";
-import { useNavigate } from 'react-router-dom';
 
 
 function Download2() {
@@ -15,7 +14,7 @@ function Download2() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   //const [username, setUsername] = useState(""); 
-  const [filename, setFilename] = useState(""); 
+  //const [filename, setFilename] = useState(""); 
   // 文件選擇
   const handleFileSelect = async (event) => {
     const files = event.target.files;
@@ -118,6 +117,7 @@ function Download2() {
           `http://localhost:8080/api/project/confirmstep/?step=1&username=${id}&projectname=${projectname}`
         );
         console.log('step updated successfully:', response2.data);
+        localStorage.setItem(`firstPage_${id}_${projectname}`, 'true');
         navigate(`/Step?id=${id}&project=${projectname}`);
       } catch (error) {
         console.error("Error sending data to backend:", error);

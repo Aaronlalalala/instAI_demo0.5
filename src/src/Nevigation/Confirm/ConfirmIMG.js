@@ -11,7 +11,7 @@ function ConfirmImg() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
   const projectname = searchParams.get('projectname');
-  const [confirmed2, setConfirmed2] = useState(JSON.parse(localStorage.getItem(`confirmed2_${id}_${projectname}`)) === true);
+  const [confirmed2, setConfirmed2] = useState(JSON.parse(localStorage.getItem(`confirmStatusImg_${id}_${projectname}`) || 'false'));
   const navigate = useNavigate();
   const [selectedFiles, setSelectedFiles] = useState([]);
   console.log("現在狀態",confirmed2);
@@ -25,7 +25,7 @@ function ConfirmImg() {
     }
   };
   useEffect(() => {
-    localStorage.setItem(`confirmed2_${id}_${projectname}`, confirmed2.toString());
+    localStorage.setItem(`confirmStatusImg_${id}_${projectname}`, confirmed2.toString());
     fetchData();
   }, [id, projectname]);
 
@@ -106,7 +106,7 @@ function ConfirmImg() {
   const handleCancelConfirmation = () => {
     const userConfirmed = window.confirm('Are you sure you want to cancel the confirmation?');
     if (userConfirmed) {
-      localStorage.setItem(`confirmed2_${id}_${projectname}`, 'false');
+      localStorage.setItem(`confirmStatusImg_${id}_${projectname}`, 'false');
       setConfirmed2(false);
     }
   };
@@ -114,7 +114,7 @@ function ConfirmImg() {
   const handleConfirmRequirement = () => {
     const userConfirmed = window.confirm('Are you sure you want to confirm the requirement?');
     if (userConfirmed) {
-      localStorage.setItem(`confirmed2_${id}_${projectname}`, 'true');
+      localStorage.setItem(`confirmStatusImg_${id}_${projectname}`, 'true');
       setConfirmed2(true);
     }
   };

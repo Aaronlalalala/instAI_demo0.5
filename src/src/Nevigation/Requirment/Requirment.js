@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Prompt from "../../Components/Prompt/Prompt2";
-import { NavLink, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Requirment.css";
 import InstAI_icon from "../../image/instai_icon.png";
 //import ReviewReq from "../Review/ReviewReq";
-//import { useNavigate } from 'react-router-dom';
 
 function Requirement() {
   const [reqData, setReqData] = useState({
@@ -21,7 +20,7 @@ function Requirement() {
     author: "",
     LastUpdated: "",
   });
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   //const [ReqPreviews, setReqPreviews] = useState([]);
   const [linktostep, setlinktostep] = useState(false);
   const [isDataChecked, setIsDataChecked] = useState(false);
@@ -29,7 +28,6 @@ function Requirement() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const projectname = searchParams.get("projectname");
-
   // Set initial values for ID, author, and LastUpdated
   useEffect(() => {
     setReqData((prevData) => ({
@@ -109,8 +107,9 @@ function Requirement() {
       });
       setlinktostep(false);
       setIsDataChecked(false);
+      localStorage.setItem(`secondPage_${id}_${projectname}`, 'true');
       //navigate 
-      
+      navigate(`/Step?id=${id}&project=${projectname}`);
     } catch (error) {
       console.error("Submission failed:", error);
       if (error.response) {
@@ -161,7 +160,7 @@ function Requirement() {
           <div className="col-md-12 d-flex justify-content-end ">
             {isDataChecked ? (
              <>
-             {linktostep ? (
+             {/* {linktostep ? (
             <NavLink to={`/Step?id=${id}&project=${projectname}`}>
               <button onClick={handleSendData} className="btn submitButton">
                 Submit
@@ -171,7 +170,10 @@ function Requirement() {
             <button onClick={handleSendData} className="btn submitButton">
               Submit
             </button>
-             )}
+             )} */}
+             <button onClick={handleSendData} className="btn submitButton">
+              Submit
+            </button>
         </>
              ) : (
               <button onClick={handleGenerateClick} className="btn submitButton">
