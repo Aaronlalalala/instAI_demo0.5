@@ -108,7 +108,7 @@ function Step() {
         }
       }
       else{
-        window.confirm("請從第一步開始")
+        alert("請從第一步開始");
       }
    }
   };
