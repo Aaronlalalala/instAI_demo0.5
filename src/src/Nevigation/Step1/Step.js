@@ -209,7 +209,7 @@ function Step() {
     </div>
 
         <h1 className='main-projectTitle'>
-        Traffic cone 
+        {projectname} 
         </h1>
       <nav className="secondNav">
         <ul>
@@ -255,8 +255,8 @@ function Step() {
           <li className='listTitle'>Training your AI model</li>
           <li>You haven't submitted data yet</li>
         </ul>
-        <button className={step === 0 || step === 1 ? 'upload-buttonNo3' : step === 2 ? 'upload-buttonNo3-active' : 'upload-buttonNo3-complete'} onClick={handleFormDataChange} >Confirm data</button>
-        <button className={step === 0 || step === 1 ? 'upload-buttonNo4' : step === 2 ? 'upload-buttonNo4-active' : 'upload-buttonNo4-complete'} onClick={handleForm2DataChange} >Confirm requirements</button>
+        <button className={step === 0 || step === 1 ? 'upload-buttonNo3' : step === 2 ? 'upload-buttonNo3-active' : 'upload-buttonNo3-complete'} onClick={handleFormDataChange} disabled={ step === 3? true : false}>Confirm data</button>
+        <button className={step === 0 || step === 1 ? 'upload-buttonNo4' : step === 2 ? 'upload-buttonNo4-active' : 'upload-buttonNo4-complete'} onClick={handleForm2DataChange} disabled={ step === 3? true : false}>Confirm requirements</button>
       </div>
 
       <div className={step === 3 ? 'frameNo4' : 'frameNo4-complete'}>

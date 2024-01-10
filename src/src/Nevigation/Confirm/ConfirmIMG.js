@@ -212,6 +212,7 @@ function ConfirmImg() {
         onClick={handleConfirmButtonClick}
         className="btn btn-danger"
         style={{ backgroundColor: confirmed2 ? 'green' : '' }}
+        disabled={confirmed2 ? true : false}
       >
         {confirmed2 ? 'Image is already confirmed' : 'Image is not confirmed'}
         </button>

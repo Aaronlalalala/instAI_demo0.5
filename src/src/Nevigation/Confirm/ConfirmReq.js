@@ -191,7 +191,7 @@ const handleConfirmRequirement = () => {
 
 
           <div className=" d-flex mt-2 mb-3 justify-content-center ">
-          <button className='btn mr-1 btn-danger' onClick={handleConfirmButtonClick} style={{ backgroundColor: confirmed ? 'green' : '' }}>
+          <button className='btn mr-1 btn-danger' onClick={handleConfirmButtonClick} style={{ backgroundColor: confirmed ? 'green' : '' }} disabled={confirmed ? true : false}>
         {confirmed ? 'Requirement is already confirmed' : 'Requirement is not confirmed'}
           </button>
             </div>
