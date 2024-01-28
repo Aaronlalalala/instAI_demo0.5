@@ -15,11 +15,26 @@ function ViewData() {
   const navigate = useNavigate();
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:8080/api/upload/download?username=${id}&projectname=${projectname}`);
+  //     console.log(response.data.images);
+  //     setImagePreviews(response.data.images);
+  //   } catch (error) {
+  //     console.error('Error fetching image previews:', error);
+  //   }
+  // };
   const fetchData = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/upload/download?username=${id}&projectname=${projectname}`);
-      console.log(response.data.images);
-      setImagePreviews(response.data.images);
+      console.log('Response from backend:', response.data);
+  
+      if (response.data.images && Array.isArray(response.data.images)) {
+        console.log('Received images:', response.data.images);
+        setImagePreviews(response.data.images);
+      } else {
+        console.error('Invalid response format from backend:', response.data);
+      }
     } catch (error) {
       console.error('Error fetching image previews:', error);
     }
@@ -126,7 +141,9 @@ function ViewData() {
         {imagePreviews.map((preview, index) => (
           <div key={index} className="image-preview">
             <img
-              src={`http://localhost:8080${preview}`}
+              //src={`https://instaiweb-bucket.s3.us-east-1.amazonaws.com/uploads/3/cats/5.png`}
+              src={`https://instaiweb-bucket.s3.us-east-1.amazonaws.com/${preview}`}
+              // src={`http://localhost:8080${preview}`}
               alt={`image ${index}`}
               style={{ width: '128px', height: '128px' }}
               loading="lazy"

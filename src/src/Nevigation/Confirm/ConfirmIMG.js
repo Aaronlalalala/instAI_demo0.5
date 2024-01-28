@@ -182,7 +182,8 @@ function ConfirmImg() {
         {imagePreviews.map((preview, index) => (
           <div key={index} className="image-preview">
             <img
-              src={`http://localhost:8080${preview}`}
+              src={`https://instaiweb-bucket.s3.us-east-1.amazonaws.com/${preview}`}
+              //src={`http://localhost:8080${preview}`}
               alt={`image ${index}`}
               style={{ width: '128px', height: '128px' }}
               loading="lazy"

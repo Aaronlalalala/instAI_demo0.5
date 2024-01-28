@@ -67,6 +67,20 @@ function ConfirmReq() {
       console.log('Data updated successfully:', response.data);
 
       fetchData();
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/upload/getrequirement/?username=${id}&projectname=${projectname}`
+        );
+        const responseData = response.data.content;
+        const parsedData = {};
+        responseData.forEach(item => {
+          const parsedItem = JSON.parse(`{${item}}`);
+          Object.assign(parsedData, parsedItem);
+        });
+        setReqData(parsedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
       setEditable(false);
     } catch (error) {
       console.error('Error updating data:', error);

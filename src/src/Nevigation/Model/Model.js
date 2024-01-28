@@ -22,6 +22,7 @@ function Model() {
         `http://localhost:8080/api/model/downloadmodel/?username=${userid}&projectname=${projectname}`
       );
       console.log(response.data);
+      alert(response.data);
       
     } catch (error) {
       console.error('Error fetching data:', error);
