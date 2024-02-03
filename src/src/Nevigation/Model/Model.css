@@ -1,54 +1,105 @@
+/* Step.css */
 
-.model-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+
+.app{
   padding: 20px;
-  box-sizing: border-box; 
 }
-.main-Giwawa {
+
+
+.nav {
+  position: relative;
+  width: 100vw;
+  height: 80px;
+  background: #333;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+
+}
+
+.logo {
+  width: 40%;
+  height: auto;
+}
+
+.allProjects {
+  color: #6d51ee;
+  font-size: 18px;
+  
+}
+
+.subNav {
+  position:absolute;
+  width: 100vw;
+  height: 84px;
+  top:80px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  font-weight: bold;
+  background: rgb(48, 0, 137);
+}
+
+.background{
+  background-color: #f1f1f1;
+  position: absolute;
+  min-width: 100%;
+  height:85vh;
+  top: 174px; right: 0; bottom: 0; left: 10px;
+  /* top:174px;
+  left: 300px; */
+  z-index: 1;
+  border: 2px solid rgb(230, 226, 226);
+}
+
+.listTitle{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+.main-title-grid{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 50px ;
+  align-items: center;
+
+  grid-template-areas: 
+  "InstAI-Icon allProject"
+  
+  ;
+
+  grid-gap: 4px;
+  margin-bottom: 14px;
+}
+
+.main-InstAI-icon{
   grid-area: InstAI-Icon;
   justify-self: start;
 }
-  
-.progress-bar-container {
-  width: 80%;
-  margin-top: 20px;
-  padding-top: 100px;
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  height: 200px;
-}
-  
-  .progress-bar {
-    position: relative;
-    height: 10px;
-    background-color: #ccc;
-    transition: width 0.5s ease-in-out;
-  }
 
-  .progress {
-    height: 100%;
-    background-color: #4a90e2;
-  }
-  
-  .circle {
-    position: absolute;
-    top: -15px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #800080;
-    transform: translateX(-50%);
-    
-  }
-  .progress-text {
-    top: 20px;
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-  
-  }
+.main-allProject{
+  grid-area: allProject;
+  justify-self: start;
+}
+
+.main-grid-line{
+  grid-area: gridline;
+  grid-column: 1 / -1; 
+  height: 2.5px;
+  background-color: rgb(230, 226, 226);
+  box-shadow: 5px 2.5px 10px rgba(0, 0, 0, 0.2); 
+
+  grid-area: grid-line;
+  justify-self: start;
+}
+
+.main-projectTitle{
+  grid-area: projectTitle;
+  font-weight: bold;
+  justify-self: center;
+  margin-top: 3vh;
+  font-size: 30px;
+}

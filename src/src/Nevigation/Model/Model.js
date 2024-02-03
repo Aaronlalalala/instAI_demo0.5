@@ -1,109 +1,91 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import ProgressBar from 'react-progress-bar-plus';
-import 'react-progress-bar-plus/lib/progress-bar.css';
-import Giwawa from "../../image/OIP.jpg";
-import "./Model.css";
+import { NavLink, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import InstAI_icon from "../../image/instai_icon.png";
 
-function Model() {
-    const location = useLocation();
+import bell from "../../image/bell.png";
+import train from "../../image/train.png";
+import design from "../../image/design.png";
+import schedule from '../../image/schdule.png';
+import line from '../../image/line.png';
 
-  const [progress, setProgress] = useState(0);
-  const navigate = useNavigate();
+const Model = () => {
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userid = searchParams.get('id');
-  const projectname = searchParams.get('projectname');
-  const DataLink =`/Data?id=${userid}&projectname=${projectname}`;
-  const ReqLink =`/Req?id=${userid}&projectname=${projectname}`;
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-        `http://localhost:8080/api/model/downloadmodel/?username=${userid}&projectname=${projectname}`
-      );
-      console.log(response.data);
-      alert(response.data);
-      
-    } catch (error) {
-      console.error('Error fetching data:', error);
+  const projectname = searchParams.get("projectname");
+  const [modelFile, setModelFile] = useState();
+
+  useEffect(() => {
+    const fetchModel = async () => {
+      try {
+        const response = await axios.get('aws模型位址', { responseType: 'blob' });
+        console.log('Model fetched successfully');
+        setModelFile(response.data);
+      } catch (error) {
+        console.error('Could not fetch model', error);
+      }
+    };
+
+    fetchModel();
+  }, []);  
+
+  const handleDownloadModel = () => {
+    if (modelFile) {
+      const url = window.URL.createObjectURL(new Blob([modelFile]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'your_model_filename.extension');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
-  useEffect(() => {
-    // 這邊要搭配後端的功能去確認每一個階段的狀態 我只是先試著用時間去跑進度條 
-    
-    const interval = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 20 : prevProgress));
-    }, 1000);
 
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        window.confirm("Your model is finished! ");
-        // navigate('/next-page');
-        fetchData();
-      }, 1000);
-    }
-
-    return () => clearInterval(interval);
-  }, [progress, navigate]);
-
-  const DataClick = () =>{
-    const userConfirm = window.confirm("確定要補交資料嗎");
-    if(userConfirm){
-        navigate(DataLink);
-    }
-    else{
-     console.log("使用者嘗試修改");
-     return;
-    }
-  }
-  const ReqClick = () => {
-    const userConfirm = window.confirm("確定要重新回答問題");
-    if(userConfirm){
-        navigate(ReqLink);
-    }
-    else{
-    console.log("使用者嘗試修改");
-    return;
-    }
-  }
   return (
-    // <div className="model-container">
-        <div className="container-fluid mt-3 model-container" >
-      
-      <div>
-        {/* <div className='main-Giwawa'>
-          <img src={Giwawa} className='logo' alt="Your Logo" />
-        </div> */}
-        <div>
-          <ul>
-            <h3>Question?</h3>
-            <li>if you have any questions or concerns, please email to support@instai.co </li>
-          </ul>
+    <div className="container-fluid mt-3">
+      <div className="row d-flex justify-content-between ">
+        <div className="col-auto">
+          <img src={InstAI_icon} className="img-fluid" alt="InstAi_Icon" style={{ width: '76.8px', height: '76.8px' }} ></img>
         </div>
+        <div className="col-auto mt-4">
+          <NavLink to={`/Project?id=${userid}&type=1`} className="projectPageLink">
+            <button className="btn projectPageButton">返回專案頁面</button>
+          </NavLink>
+        </div>
+        <div className="custom-border" />
+      </div>
+      <h1 className='main-projectTitle'>
+        {projectname}
+      </h1>
+      <div className='background' style={{ position: 'relative' }}>
+        
+        <img src={bell} alt="bell" style={{ width: '150px', height: '150px' ,marginRight: '120px',marginLeft:'120px' }}></img>
+        <img src={schedule} alt="schedule" style={{ width: '150px', height: '150px',marginRight: '120px' }}></img>
+        <img src={design} alt="design" style={{ width: '150px', height: '150px',marginRight: '120px' }}></img>
+        <img src={train} alt="train" style={{ width: '150px', height: '150px',marginRight: '120px' }}></img>
+        <img src={line} alt="line" style={{ width: '150px', height: '150px' }}></img>
+
+        <div style={{ display: 'flex', marginTop: '20px' }}>
+          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', border: '2px solid #000', marginRight: '250px' ,marginLeft: '190px'}}></div>
+          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', border: '2px solid #000', marginRight: '250px' }}></div>
+          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', border: '2px solid #000', marginRight: '250px' }}></div>
+          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', border: '2px solid #000', marginRight: '250px' }}></div>
+          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'white', border: '2px solid #000' }}></div>
+          
+        </div>
+
+        <div style={{ position: 'absolute', left: '50%',marginTop:'-10px', transform: 'translateX(-50%)', width: '100%', borderBottom: '2px solid #000' }}></div>
+        <div className="col mt-3">
+        <ul>
+          <button className='listTitle' style={{marginLeft:'600px',marginTop:'200px'}} onClick={handleDownloadModel}>Download AI model</button>
+        </ul>
+      </div>
       </div>
 
-      {/* 動態進度條 */}
-      <div className="progress-bar-container">
-        <div className="progress-bar">
-          <div className="progress" style={{ width: `${progress}%` }}></div>
-          <div className="circle" style={{ left: "0%" }}>Request received</div>
-          <div className="circle" style={{ left: "20%" }}>Processing request</div>
-          <div className="circle" style={{ left: "40%" }}>Data generation</div>
-          <div className="circle" style={{ left: "60%" }}>AI model training</div>
-          <div className="circle" style={{ left: "80%" }}>Model download</div>
-        </div>
-        {/* 顯示進度 先不要用 */}
-        {/*<div className="progress-text">{getProgressText()}</div> */}
-      </div>
-      <div>
-        {/*<button onClick={DataClick}>Upload new data</button>*/}
-        {/*<button onClick={ReqClick}>Reply message</button>*/}
-        {/*<NavLink to = "/Step?id=${userid}&type=1"><button>go back</button></NavLink>*/}
-      </div>
+      
     </div>
   );
 }
 
 export default Model;
-
