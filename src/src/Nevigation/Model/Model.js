@@ -3,6 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import InstAI_icon from "../../image/instai_icon.png";
 
+import yolov3Model from '../../model/AD6F1091A9FD04D8298166B9DB990614977F8760_yolov3tiny'; //使用按鍵下載這個模型
+
 import bell from "../../image/bell.png";
 import train from "../../image/train.png";
 import design from "../../image/design.png";
@@ -14,8 +16,8 @@ const Model = () => {
   const searchParams = new URLSearchParams(location.search);
   const userid = searchParams.get('id');
   const projectname = searchParams.get("projectname");
-  const [modelFile, setModelFile] = useState();
-
+  const [modelFile, setModelFile] = useState(yolov3Model);
+  
   useEffect(() => {
     const fetchModel = async () => {
       try {
@@ -29,18 +31,30 @@ const Model = () => {
 
     fetchModel();
   }, []);  
-
+  
   const handleDownloadModel = () => {
     if (modelFile) {
-      const url = window.URL.createObjectURL(new Blob([modelFile]));
+      const blob = new Blob([modelFile], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'your_model_filename.extension');
+      link.setAttribute('download', `${projectname}_model.extension`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
   };
+  // const handleDownloadModel = () => {
+  //   if (modelFile) {
+  //     const url = window.URL.createObjectURL(new Blob([modelFile]));
+  //     const link = document.createElement('a');
+  //     link.href = url;
+  //     link.setAttribute('download', 'yolov3tiny.extension');
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   }
+  // };
 
   return (
     <div className="container-fluid mt-3">
