@@ -6,7 +6,7 @@ import Register from "./Components/Register/Register";
 import MainPage from "./Nevigation/mainPage/MainPage";
 import Upload from "./Components/Upload/Upload";
 import Viewupload from "./Components/Upload/Viewupload";
-import Bin from "./Components/Upload/Bin";
+
 import IMGtoIMG from "./StableDiffusion/img2img/IMGtoIMG";
 import TXTtoIMG from "./StableDiffusion/txt2txt/TXTtoIMG";
 import Download2 from "./Components/Download2/Download";
@@ -37,7 +37,6 @@ function App() {
           <Route path="/MainPage" element={<MainPage/>}></Route>
           <Route path="/login" element={<Login setUserState={setUserState} />}></Route>
           <Route path="/Upload" element={<Upload/>}></Route>
-          <Route path="/Bin" element={<Bin/>}></Route>
           <Route path="/Download2" element={<Download2/>}></Route>
           <Route path="/Viewupload" element={<Viewupload/>}></Route>
           <Route path="/TXTtoIMG" element={<TXTtoIMG/>}></Route>

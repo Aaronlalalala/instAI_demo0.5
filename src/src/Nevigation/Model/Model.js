@@ -15,14 +15,14 @@ const Model = () => {
   const searchParams = new URLSearchParams(location.search);
   const userid = searchParams.get('id');
   const projectname = searchParams.get("projectname");
-  const [modelFile, setModelFile] = useState();
-  const modelFilePath = '../../model/yolov3tiny.rar';
+  // const [modelFile, setModelFile] = useState();
+  const modelFilePath = require('../../model/yolov3tiny.rar');
   useEffect(() => {
     const fetchModel = async () => {
       try {
-        const response = await axios.get('aws模型位址', { responseType: 'blob' });
+        // const response = await axios.get('aws模型位址', { responseType: 'blob' });
         console.log('Model fetched successfully');
-        setModelFile(response.data);
+        // setModelFile(response.data);
       } catch (error) {
         console.error('Could not fetch model', error);
       }
