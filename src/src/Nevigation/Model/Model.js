@@ -31,7 +31,7 @@ const Model = () => {
 
     fetchModel();
   }, []);  
-  
+
   const handleDownloadModel = () => {
     if (modelFile) {
       const blob = new Blob([modelFile], { type: 'application/octet-stream' });
@@ -93,6 +93,8 @@ const Model = () => {
         <div className="col mt-3">
         <ul>
           <button className='listTitle' style={{marginLeft:'600px',marginTop:'200px'}} onClick={handleDownloadModel}>Download AI model</button>
+        </ul>
+        <ul>我也不知道這是不是模型檔案
         </ul>
       </div>
       </div>
