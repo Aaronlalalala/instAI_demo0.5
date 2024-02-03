@@ -38,7 +38,7 @@ const Model = () => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${projectname}_model.extension`);
+      link.setAttribute('download', `yoloV3tiny_model.extension`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
