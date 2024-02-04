@@ -33,9 +33,7 @@ const Model = () => {
 
   const handleDownloadModel = async () => {
     try {
-      const response = await fetch(modelFilePath);
-      const modelBlob = await response.blob();
-
+      const modelBlob = await fetch(modelFilePath).then(response => response.blob());
       const url = window.URL.createObjectURL(modelBlob);
       const link = document.createElement('a');
       link.href = url;
