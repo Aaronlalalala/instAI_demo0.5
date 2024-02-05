@@ -9,8 +9,8 @@ function Upload() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
 	const [uploadedFiles, setUploadedFiles] = useState([])
-    const [fileLimit, setFileLimit] = useState(false);
-
+  const [fileLimit, setFileLimit] = useState(false);
+  const upload = process.env.UPLOAD;
 
     const handleUploadFiles = files => {
         const uploaded = [...uploadedFiles];
@@ -35,7 +35,7 @@ function Upload() {
           formData.append('file', uploaded[i]);
         }
         
-        axios.post(`http://localhost:8080/api/upload/upload?username=${id}`, formData)
+        axios.post(`${upload}?username=${id}`, formData)
         .then(response => {
           console.log(response.data);
           // Handle success

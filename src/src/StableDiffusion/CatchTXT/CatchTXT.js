@@ -8,10 +8,10 @@ function CatchTXTimage() {
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]); // 用於追蹤用戶選擇的圖像
-
+  const t_p = process.env.TXT2IMG_PROCESS;
   const fetchDataFromAPI = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/txt2img/process');
+      const response = await axios.get(`${t_p}`);
       setImages(response.data);
       setError(null);
     } catch (error) {

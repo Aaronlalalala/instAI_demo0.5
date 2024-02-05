@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import loginstyle from "./Upload.module.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink , useLocation} from 'react-router-dom';
+
 
 function Viewupload() {
   const [imageURLs, setImageURLs] = useState([]);
+  const upload = process.env.UPLOAD;
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const username = searchParams.get('username');
 
   const fetchImageURLs = async () => {
     try {
-      const response = await fetch('http://8080/api/upload/upload?username=${username}'); // 替換為實際的後端路由
+      const response = await fetch(`${upload}?username=${username}`); // 替換為實際的後端路由
       if (response.ok) {
         const data = await response.json();
         setImageURLs(data.imageURLs); // 假設後端返回了圖片 URL 的數據

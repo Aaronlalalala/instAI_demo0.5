@@ -28,6 +28,7 @@ function ImgPage() {
   const [images, setImages] = useState([]);
   const [dataURL,seturl] = useState([])
   const [error, setError] = useState(null);
+  const i_p = process.env.IMG2IMG_PROCESS;
   const [isHiresChecked, setIsHiresChecked] = useState(false); // Initialize with the default value (false)
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [imgData, setImgData] = useState({
@@ -134,7 +135,7 @@ function ImgPage() {
 
   async function jsonFunction(imgToImgData) {
     try {
-      const response = await axios.post("http://localhost:8080/api/img2img/process", imgToImgData.request);
+      const response = await axios.post(`${i_p}`, imgToImgData.request);
       alert("轉換成功");
       const base64Data = response.data; // Replace with the actual base64-encoded image data
       const dataURL = `data:image/png;base64,${base64Data}`;

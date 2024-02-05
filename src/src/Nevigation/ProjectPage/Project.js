@@ -16,7 +16,8 @@ function Project() {
   const [projectList, setProjectList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
-
+  const g_r = process.env.GET_PROJECT;
+  const d_p = process.env.DELETE_PROJECT;
 
   console.log(searchParams)
   console.log(id)
@@ -25,7 +26,7 @@ function Project() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/project/getproject/?username=${type ? id : userid}`);
+        const response = await axios.get(`${g_r}/?username=${type ? id : userid}`);
         setProjectList(response.data);
       } catch (error) {
         console.error(error);
@@ -48,7 +49,7 @@ function Project() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/project/deleteproject?username=${type ? id : userid}`,
+        `${d_p}?username=${type ? id : userid}`,
         { projectName: deletedProject.trim() }
       );
       localStorage.setItem(`firstPage_${type ? id : userid}_${deletedProject}`, 'false');

@@ -35,6 +35,7 @@ function TxtPage() {
   const [error, setError] = useState(null);
   //const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isHiresChecked, setIsHiresChecked] = useState(false);
+  const t_p = process.env.TXT2IMG_PROCESS;
   const [formData, setFormData] = useState({
     enable_hr: false,
     denoising_strength: 0,
@@ -109,7 +110,7 @@ function TxtPage() {
 /*5*/
   async function Jsonfunction(TxtToImgData) {
     try {
-      const response = await axios.post("http://localhost:8080/api/txt2img/process", TxtToImgData.request);
+      const response = await axios.post(`${t_p}`, TxtToImgData.request);
       alert("轉換成功");
       const base64Data = response.data; // Replace with the actual base64-encoded image data
       const dataURL = `data:image/png;base64,${base64Data}`;

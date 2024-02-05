@@ -12,11 +12,12 @@ function Data() {
   const id = searchParams.get('id');
   const projectname = searchParams.get('projectname');
   const navigate = useNavigate();
-
+  const g_r = process.env.GET_REQUIREMENT;
+  const u_r = process.env.UPLOAD_REQUIREMENT;
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/upload/getrequirement/?username=${id}&projectname=${projectname}`
+        `${g_r}/?username=${id}&projectname=${projectname}`
       );
       const responseData = response.data.content;
       const parsedData = {};
@@ -51,7 +52,7 @@ function Data() {
       };
 
       const response = await axios.post(
-        `http://localhost:8080/api/upload/requirement/?username=${id}&projectname=${projectname}`,
+        `${u_r}/?username=${id}&projectname=${projectname}`,
         { data: updatedData }
       );
 

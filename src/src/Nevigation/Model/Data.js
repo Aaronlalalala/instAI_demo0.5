@@ -12,10 +12,13 @@ function Data() {
   const id = searchParams.get('id');
   const projectname = searchParams.get('projectname');
   const navigate = useNavigate();
+  const u = process.env.UPLOAD;
+  const u_d = process.env.UPLOAD_DOWNLOAD;
+  const u_d_d = process.env.UPLOAD_DELETEIMG;
   const [selectedFiles, setSelectedFiles] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/upload/download?username=${id}&projectname=${projectname}`);
+      const response = await axios.get(`${u_d}?username=${id}&projectname=${projectname}`);
       console.log(response.data.images);
       setImagePreviews(response.data.images);
     } catch (error) {
@@ -36,7 +39,7 @@ function Data() {
 
     setImagePreviews(updatedPreviews);
     try {
-      await axios.post(`http://localhost:8080/api/upload/deleteimg?username=${id}&projectname=${projectname}`, { filename: deletedImage });
+      await axios.post(`${u_d_d}?username=${id}&projectname=${projectname}`, { filename: deletedImage });
       alert('Delete success');
     } catch (error) {
       console.error('Error deleting image:', error);
@@ -99,7 +102,7 @@ function Data() {
     }
     console.log(selectedFiles.length);
     try {
-      const response = await axios.post(`http://localhost:8080/api/upload/upload?username=${id}&projectname=${projectname}`, formData);
+      const response = await axios.post(`${u}?username=${id}&projectname=${projectname}`, formData);
       console.log(response.data);
       alert('Upload success');
       setSelectedFiles([]);

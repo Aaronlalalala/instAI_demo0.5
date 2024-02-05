@@ -10,6 +10,7 @@ function Step() {
   const searchParams = new URLSearchParams(location.search);
   const userid = searchParams.get('id');
   const projectname = searchParams.get('project');
+  const g_s = process.env.GET_STEP;
   const modelLink = `/Model?id=${userid}&projectname=${projectname}`;
   const [upload, setUpload] = useState(
     JSON.parse(localStorage.getItem(`firstPage_${userid}_${projectname}`) || 'false')
@@ -27,7 +28,7 @@ function Step() {
   const fetchstep = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/project/getstep/?username=${userid}&projectname=${projectname}`
+        `${g_s}/?username=${userid}&projectname=${projectname}`
       );
       console.log(response.data)
       setstep(response.data);
@@ -170,7 +171,7 @@ function Step() {
       if (confirm1Data  && confirm2Data && upload && requirement){  
         try {
           const response = await axios.get(
-            `http://localhost:8080/api/project/getstep/?username=${userid}&projectname=${projectname}`
+            `${g_s}/?username=${userid}&projectname=${projectname}`
           );
           console.log(response.data)
           if(response.data === 3){

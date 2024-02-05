@@ -28,6 +28,8 @@ function Requirement() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const projectname = searchParams.get("projectname");
+  const u_r = process.env.UPLOAD_REQUIREMENT;
+  const c_s = process.env.CONFIRM_STEP;
   // Set initial values for ID, author, and LastUpdated
   useEffect(() => {
     setReqData((prevData) => ({
@@ -82,12 +84,12 @@ function Requirement() {
     };
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/upload/requirement/?username=${id}&projectname=${projectname}`,
+        `${u_r}/?username=${id}&projectname=${projectname}`,
         requestData
       );
       console.log("server response:", response.data);
       const response2 = await axios.post(
-        `http://localhost:8080/api/project/confirmstep/?step=2&username=${id}&projectname=${projectname}`
+        `${c_s}/?step=2&username=${id}&projectname=${projectname}`
       );
       console.log('step updated successfully:', response2.data);
       alert("Requirement submitted successfully!");

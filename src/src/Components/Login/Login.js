@@ -9,6 +9,7 @@ const Login = ({ setUserState }) => {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const log_in = process.env.LOG_IN
   const [user, setUserDetails] = useState({
     email: "",
     password: "",
@@ -46,7 +47,7 @@ const Login = ({ setUserState }) => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(user);
       axios
-        .post("http://localhost:8080/api/account/login", user)
+        .post(`${log_in}`, user)
         .then((res) => {
           if(res.data.includes("Faile"))
             alert("Log in failed!");

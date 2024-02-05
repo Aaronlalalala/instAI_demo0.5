@@ -10,10 +10,10 @@ function CheckPoint({ value, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null); // 確保這裡有定義
   const [fileList, setFileList] = useState([]); // State to store the list of filenames
-
+  const upload_checkdata = process.env.UPLOAD_CHECKDATA
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/upload/checkdata?check=model&username=${id}`)
+      .get(`${upload_checkdata}?check=model&username=${id}`)
       .then((response) => {
         setFileList(response.data); // Set the list of filenames received from the server
         //alert('Filenames loaded successfully');
